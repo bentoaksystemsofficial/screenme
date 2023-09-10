@@ -48,14 +48,13 @@ function importer_page()
     echo '<input type="submit" name="import_customers" value="Import Customers">';
     echo '</form>';
 
+    echo '<h1>Orders Importer</h1>';
+    echo '<form method="post" >';
+    echo '<input type="submit" name="import_orders" value="Import Orders">';
+    echo '</form>';
+
     require __DIR__ . '/customers_migration.php';
     require __DIR__ . '/products_migration.php';
-
-//    remove_all_products_in_woocommerce();
-//    remove_all_categories_in_woocommerce();
-//    die();
-    // Handle the product import logic here
-
-
+    require __DIR__ . '/orders_migration.php';
 
 }

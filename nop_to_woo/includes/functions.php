@@ -51,6 +51,7 @@ function my_create_product_in_woocommerce($product_data)
 
     // Prepare product data for insertion
     $product = array(
+        //'ID' => $product_data['ProductId'],
         'post_title' => $product_data['Name'],
         'post_content' => $product_data['FullDescription'],
         'post_status' => 'publish',
@@ -64,6 +65,7 @@ function my_create_product_in_woocommerce($product_data)
     if ($product_id) {
         update_post_meta($product_id, '_regular_price', $product_data['Price']);
         update_post_meta($product_id, '_price', $product_data['Price']);
+        update_post_meta($product_id, 'nop_product_id', $product_data['ProductId']);
         // Add other meta fields as needed
     }
 

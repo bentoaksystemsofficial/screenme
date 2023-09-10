@@ -1,7 +1,8 @@
 <?php
+global $CategoryIdToId;
+$CategoryIdToId = array();
 if (isset($_POST['import_products'])) {
-    global $CategoryIdToId;
-    $CategoryIdToId = array();
+
     // Get the JSON data from files
     $products_json_data = file_get_contents(NTW_PLUGIN_DIR . '/data/products.json');
     $categories_json_data = file_get_contents(NTW_PLUGIN_DIR . '/data/categories.json');
@@ -21,6 +22,7 @@ if (isset($_POST['import_products'])) {
 
     if (is_array($products_data) && isset($categories_data['Categories']['Category'])) {
         // Import products and assign them to categories
+        $counter=1;
         foreach ($products_data['Products']['Product'] as $product_data) {
             $product_id = my_create_product_in_woocommerce($product_data);
             if ($product_id) {
@@ -48,10 +50,12 @@ if (isset($_POST['import_products'])) {
                         wp_set_object_terms($product_id, $category_ids, 'product_cat');
                     }
                 }
+                $counter++;
             } else {
                 echo 'Failed to import product "' . $product_data['Name'] . '".<br>';
             }
         }
+        echo $counter;
     } else {
         echo 'Invalid JSON file or empty data.';
     }
